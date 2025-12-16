@@ -64,9 +64,9 @@ export const navbarLinks = [
         path: "/products",
       },
       {
-        label: "New product",
+        label: "New products",
         icon: PackagePlus,
-        path: "/new-product",
+        path: "/new-products",
       },
       {
         label: "Inventory",
