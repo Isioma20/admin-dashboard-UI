@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "./contexts/theme-context";
+import Layout from "./routes/layout";
+import DashboardPage from "./routes/dashboard/page";
 
 const App = () => {
   const router = createBrowserRouter([
