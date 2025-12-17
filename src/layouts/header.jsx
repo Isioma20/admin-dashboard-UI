@@ -1,4 +1,4 @@
-import { ChevronsLeft } from "lucide-react";
+import { ChevronsLeft, Search } from "lucide-react";
 
 const Header = ({ collapsed, setCollapsed }) => {
   return (
@@ -10,6 +10,16 @@ const Header = ({ collapsed, setCollapsed }) => {
         >
           <ChevronsLeft className={collapsed && "rotate-180"} />
         </button>
+        <div className="input">
+          <Search size={20} className="text-slate-300" />
+          <input
+            type="search"
+            name="search"
+            id="search"
+            placeholder="Search..."
+            className="w-full bg-transparent text-slate-900 outline-0 placeholder:text-slate-300 dark:text-slate-500"
+          />
+        </div>
       </div>
     </header>
   );
