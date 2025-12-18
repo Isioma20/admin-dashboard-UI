@@ -18,6 +18,7 @@ import {
 } from "recharts";
 import { overviewData, recentSalesData, topProducts } from "../../constants";
 import { useTheme } from "../../hooks/use-theme";
+import Footer from "../../layouts/footer";
 
 const DashboardPage = () => {
   const { theme } = useTheme();
@@ -207,7 +208,7 @@ const DashboardPage = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="table-cell">{product.price}</td>
+                    <td className="table-cell">${product.price}</td>
                     <td className="table-cell">{product.status}</td>
                     <td className="table-cell">
                       <div className="flex items-center gap-x-2">
@@ -235,6 +236,7 @@ const DashboardPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
