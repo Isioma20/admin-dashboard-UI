@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Package,
   TrendingUp,
@@ -19,9 +20,11 @@ import {
 import { overviewData, recentSalesData, topProducts } from "../../constants";
 import { useTheme } from "../../hooks/use-theme";
 import Footer from "../../layouts/footer";
+import Modal from "../../modal";
 
 const DashboardPage = () => {
   const { theme } = useTheme();
+  const [open, setOpen] = useState(false);
   return (
     <div className="flex flex-col gap-y-4 ">
       <h1 className="title">Dashboard</h1>
@@ -224,7 +227,10 @@ const DashboardPage = () => {
                         <button className="text-blue-500 dark:text-blue-600">
                           <PencilLine size={20} />
                         </button>
-                        <button className="text-red-500">
+                        <button
+                          className="text-red-500"
+                          onClick={() => setOpen(true)}
+                        >
                           <Trash size={20} />
                         </button>
                       </div>
@@ -237,6 +243,28 @@ const DashboardPage = () => {
         </div>
       </div>
       <Footer />
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div className="text-center w-2xs md:w-sm">
+          <Trash size={40} className="text-red-500 mx-auto" />
+          <div className="mx-auto my-4 w-3xs md:w-xs">
+            <h3 className="text-lg font-black text-slate-900 dark:text-slate-50">
+              Confirm Delete
+            </h3>
+            <p className="text-sm text-slate-700 dark:text-slate-50/80">
+              Are you sure you want to delete this item?
+            </p>
+          </div>
+          <div className="flex gap-4 justify-between">
+            <button className="w-full cursor-pointer">Delete</button>
+            <button
+              className="w-full cursor-pointer"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
