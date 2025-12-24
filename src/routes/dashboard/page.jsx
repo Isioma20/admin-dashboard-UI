@@ -24,7 +24,10 @@ import Modal from "../../modal";
 
 const DashboardPage = () => {
   const { theme } = useTheme();
-  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
   return (
     <div className="flex flex-col gap-y-4 ">
       <h1 className="title">Dashboard</h1>
@@ -224,12 +227,18 @@ const DashboardPage = () => {
                     </td>
                     <td className="table-cell">
                       <div className="flex items-center gap-x-4">
-                        <button className="text-blue-500 dark:text-blue-600">
+                        <button
+                          className="text-blue-500 dark:text-blue-600"
+                          onClick={() => {
+                            setSelectedProduct(product);
+                            setOpenEdit(true);
+                          }}
+                        >
                           <PencilLine size={20} />
                         </button>
                         <button
                           className="text-red-500"
-                          onClick={() => setOpen(true)}
+                          onClick={() => setOpenDelete(true)}
                         >
                           <Trash size={20} />
                         </button>
@@ -243,8 +252,8 @@ const DashboardPage = () => {
         </div>
       </div>
       <Footer />
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="text-center w-2xs md:w-sm">
+      <Modal open={openDelete} onClose={() => setOpenDelete(false)}>
+        <div className="text-center w-full">
           <Trash size={40} className="text-red-500 mx-auto" />
           <div className="mx-auto my-4 w-3xs md:w-xs">
             <h3 className="text-lg font-black text-slate-900 dark:text-slate-50">
@@ -258,12 +267,67 @@ const DashboardPage = () => {
             <button className="w-full cursor-pointer">Delete</button>
             <button
               className="w-full cursor-pointer"
-              onClick={() => setOpen(false)}
+              onClick={() => setOpenDelete(false)}
             >
               Cancel
             </button>
           </div>
         </div>
+      </Modal>
+      <Modal open={openEdit} onClose={() => setOpenEdit(false)}>
+        {selectedProduct && (
+          <div className="text-center w-full max-h-[90vh] p-4">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-50">
+              Edit product
+            </h2>
+            <p className="mx-auto my-3 font-medium text-slate-900 dark:text-slate-50">
+              {selectedProduct.name}
+            </p>
+            <label className="label">
+              Description:
+              <input
+                className="label-input mb-2 w-full text-slate-900 dark:text-slate-50"
+                value={selectedProduct.description}
+              />
+            </label>
+            <label className="label">
+              Price
+              <input
+                type="number"
+                className="label-input mb-2 w-full text-slate-900 dark:text-slate-50"
+                value={selectedProduct.price}
+              />
+            </label>
+            <label className="label">
+              Status:
+              <select
+                className="label-input mb-2 w-full text-slate-900 dark:text-slate-50"
+                value={selectedProduct.status}
+              >
+                <option>In Stock</option>
+                <option>Out of Stock</option>
+              </select>
+            </label>
+            <label className="label">
+              Rating:
+              <input
+                type="number"
+                step="0.5"
+                className="label-input mb-4 w-full text-slate-900 dark:text-slate-50"
+                value={selectedProduct.rating}
+              />
+            </label>
+            <div className="flex gap-4 justify-between mt-2">
+              <button className="w-full cursor-pointer">Save</button>
+              <button
+                className="w-full cursor-pointer"
+                onClick={() => setOpenEdit(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   );
